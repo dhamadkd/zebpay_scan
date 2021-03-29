@@ -1,5 +1,5 @@
 {
-    "chains" : ["mainnet","ropsten", "kovan", "rinkeby","gorli"],
+    "chain" : "mainnet",
     "api_key": "6ed84dc6670c4244beb6795b8faf9194",
     "protocol" : "https://",
     "chain_suffix" : ".infura.io/v3/"

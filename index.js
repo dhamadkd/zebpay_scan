@@ -1,20 +1,31 @@
 const express = require('express')
 const infura_tx = require('./infura/transaction')
 const app = express()
-const port = 3030
+const port = 3030 //API will be served on this port
 
+//API get transaction information endpoint on
+//Api should server transaction info on path 
+//$HOST:$PORT/eth/api/v1/transaction/$TXID
 app.get('/eth/api/v1/transaction/:TXID', async (req, res) => {
     const txid = req.params.TXID
-    let response1 = await infura_tx.getTransactionByHash(txid)
-    if (response1)
-    {
-      console.log('value returns');
-      console.log(JSON.stringify(response1,null,4));
+    try{
+      let response = await infura_tx.getTransactionInfo(txid)
+      if (response)
+      {
+        console.log(JSON.stringify(response,null,4));
+        res.send(JSON.stringify(response,null,4));
+      }
+      else
+      {
+        console.log(JSON.stringify({"Error": "Could not fetch transaction information"}));
+        res.send(JSON.stringify({"Error": "Could not fetch transaction information"}));
+      }
     }
-    else{
-      console.log('invalid chain or transactionid');
+    catch(err){
+      console.log(JSON.stringify({"Error": err.toString()}));
+      res.send(JSON.stringify({"Error": err.toString()}));
     }
-    res.send(JSON.stringify(response1,null,4));
+
 })
 
 app.listen(port, () => {
