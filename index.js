@@ -1,7 +1,7 @@
 const express = require('express')
 const infura_tx = require('./infura/transaction')
 const app = express()
-const port = 8080
+const port = 3030
 
 app.get('/eth/api/v1/transaction/:TXID', async (req, res) => {
     const txid = req.params.TXID
